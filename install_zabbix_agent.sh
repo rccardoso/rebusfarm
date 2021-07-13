@@ -16,7 +16,7 @@ HOSTNAME=$(hostname)
 
 echo "Configure agent"
 
-cat > /tmp/zabbix_agentd.conf <<EOL
+cat > /etc/zabbix/zabbix_agentd.conf <<EOL
 PidFile=/run/zabbix/zabbix_agentd.pid
 LogFile=/var/log/zabbix/zabbix_agentd.log
 LogFileSize=0
@@ -35,9 +35,10 @@ echo "Restart and enable service"
 systemctl restart zabbix-agent
 systemctl enable zabbix-agent
 
-echo "Hostname: " $HOSTNAME
-echo "IP Addresses: "
+echo "Hostname:" $HOSTNAME
+echo "IP Addresses:"
 ip addr | grep inet | grep -v fe | grep -v :: | awk '{print $2}' | sed 's/\/.*//g'
-echo "PSK: " $(cat /etc/zabbix/zabbix_agentd.psk)
+echo "PSK Identity:" $HOSTNAME
+echo "PSK:" $(cat /etc/zabbix/zabbix_agentd.psk)
 
 exit 0
