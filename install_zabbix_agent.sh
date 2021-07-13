@@ -38,6 +38,6 @@ systemctl enable zabbix-agent
 echo "Hostname: " $HOSTNAME
 echo "IP Addresses: "
 ip addr | grep inet | grep -v fe | grep -v :: | awk '{print $2}' | sed 's/\/.*//g'
-echo "PSK Identity: " $(cat /etc/zabbix/zabbix_agentd.psk)
+echo "PSK: " $(cat /etc/zabbix/zabbix_agentd.psk)
 
 exit 0
